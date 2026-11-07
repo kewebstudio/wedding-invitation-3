@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 
 export default function Envelope3D({
@@ -7,10 +8,10 @@ export default function Envelope3D({
 }) {
   return (
     <div className="envelope3d-scene">
-      {/* Ambient golden light */}
+      {/* Ambient golden glow */}
       <div className="envelope3d-glow" />
 
-      {/* Floating particles */}
+      {/* Floating golden particles */}
       <div className="envelope3d-particles" aria-hidden="true">
         {Array.from({ length: 26 }, (_, index) => (
           <span
@@ -25,7 +26,7 @@ export default function Envelope3D({
         ))}
       </div>
 
-      {/* Full-screen card stage */}
+      {/* Full-screen invitation */}
       <div className="envelope3d-stage">
         <motion.div
           className="envelope3d-card"
@@ -34,14 +35,12 @@ export default function Envelope3D({
             isOpening
               ? {
                   rotateY: 180,
-                  scale: [1, 1.025, 1.045, 1.08],
-                  y: [0, -5, -9, -15],
+                  scale: [1, 1.015, 1.035, 1.06],
                   opacity: [1, 1, 1, 0],
                 }
               : {
                   rotateY: 0,
                   scale: 1,
-                  y: 0,
                   opacity: 1,
                 }
           }
@@ -52,14 +51,10 @@ export default function Envelope3D({
                   times: [0, 0.35, 0.75, 1],
                   ease: [0.45, 0, 0.2, 1],
                 }
-              : {
-                  duration: 0.3,
-                }
+              : { duration: 0.3 }
           }
           onAnimationComplete={() => {
-            if (isOpening) {
-              onOpened?.();
-            }
+            if (isOpening) onOpened?.();
           }}
         >
           {children}
@@ -87,17 +82,13 @@ export default function Envelope3D({
         }}
       />
 
-      {/* Final golden flash */}
+      {/* Golden flash */}
       <motion.div
         className="envelope3d-flash"
         animate={
           isOpening
-            ? {
-                opacity: [0, 0, 0.65, 0],
-              }
-            : {
-                opacity: 0,
-              }
+            ? { opacity: [0, 0, 0.65, 0] }
+            : { opacity: 0 }
         }
         transition={{
           duration: 3,
@@ -110,36 +101,28 @@ export default function Envelope3D({
 }
 
 /* =====================================
-   CINEMATIC 3D CARD STYLES
+   FULL-SCREEN CINEMATIC CARD
 ===================================== */
 
 const styles = `
 .envelope3d-scene {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
   height: 100vh;
   height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  perspective: 1500px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      #fffaf3 0%,
-      #f8eee5 60%,
-      #ead8cc 100%
-    );
+  perspective: 1600px;
+  background: #f8eee7;
 }
 
-/* Golden ambient glow */
+/* Ambient golden glow */
 
 .envelope3d-glow {
   position: absolute;
+  z-index: 0;
   width: min(100vw, 700px);
   aspect-ratio: 1;
   left: 50%;
@@ -148,15 +131,15 @@ const styles = `
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 221, 174, 0.4),
-    rgba(255, 221, 174, 0.12) 48%,
+    rgba(255, 221, 174, 0.35),
+    rgba(255, 221, 174, 0.1) 48%,
     transparent 72%
   );
   filter: blur(25px);
   pointer-events: none;
 }
 
-/* Full-screen stage: no small fixed card box */
+/* Full viewport stage */
 
 .envelope3d-stage {
   position: absolute;
@@ -164,20 +147,18 @@ const styles = `
   z-index: 2;
   width: 100%;
   height: 100%;
-  perspective: 1500px;
-  perspective-origin: center center;
+  perspective: 1600px;
+  perspective-origin: 50% 50%;
 }
 
-/* Original card artwork */
+/* Entire sealed image and its overlays */
 
 .envelope3d-card {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   transform-origin: center center;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
@@ -186,21 +167,32 @@ const styles = `
   will-change: transform, opacity;
 }
 
-/* Preserve the original component artwork */
+/* Preserve SealedCard container dimensions */
 
-.envelope3d-card > * {
+.envelope3d-card .sealed-card-container {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f8eee7;
 }
 
-/* If the artwork is an image, fit it without cropping */
+/* Full-screen sealed invitation image */
 
-.envelope3d-card img {
+.envelope3d-card .sealed-card-image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 /* Floating particles */
@@ -238,11 +230,11 @@ const styles = `
   }
 }
 
-/* Light sweep */
+/* Cinematic light sweep */
 
 .envelope3d-light-sweep {
   position: absolute;
-  z-index: 4;
+  z-index: 40;
   top: -30%;
   left: 0;
   width: 35%;
@@ -257,11 +249,11 @@ const styles = `
   pointer-events: none;
 }
 
-/* Reveal flash */
+/* Final golden flash */
 
 .envelope3d-flash {
   position: absolute;
-  z-index: 5;
+  z-index: 45;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
@@ -276,28 +268,34 @@ const styles = `
 
 @media (max-width: 600px) {
   .envelope3d-scene {
-    min-height: 100svh;
+    width: 100%;
+    height: 100vh;
     height: 100svh;
+    min-height: 100svh;
   }
 
-  .envelope3d-stage {
+  .envelope3d-stage,
+  .envelope3d-card,
+  .envelope3d-card .sealed-card-container {
+    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
 
-  .envelope3d-card {
+  .envelope3d-card .sealed-card-image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center center;
   }
 }
 
-/* Very small mobile screens */
+/* Smaller phones */
 
 @media (max-width: 360px) {
   .envelope3d-scene {
     width: 100%;
-    min-height: 100svh;
     height: 100svh;
   }
 }
@@ -306,8 +304,8 @@ const styles = `
 
 @media (max-height: 650px) {
   .envelope3d-scene {
-    min-height: 100svh;
     height: 100svh;
+    min-height: 100svh;
   }
 }
 

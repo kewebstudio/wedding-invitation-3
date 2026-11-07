@@ -1,0 +1,215 @@
+
+/* =========================================
+   WEDDING INVITATION - GLOBAL STYLES
+========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap");
+
+/* RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  background: #fbf7f0;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #fbf7f0;
+  color: #4b2430;
+  font-family: "DM Sans", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.wedding-app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #fbf7f0;
+}
+
+/* OPENING SCREEN */
+
+.opening-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #fffdf8 0%,
+      #f8eee7 58%,
+      #f0dfd5 100%
+    );
+}
+
+/* INVITATION CONTENT */
+
+.invitation-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #fbf7f0;
+  overflow: hidden;
+}
+
+/* GLOBAL ELEMENTS */
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* TYPOGRAPHY */
+
+h1,
+h2,
+h3 {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.script-font {
+  font-family: "Great Vibes", cursive;
+}
+
+.serif-font {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* SELECTION */
+
+::selection {
+  color: #fffaf3;
+  background: #8b3b50;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fbf7f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c6a477;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9b6d53;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .opening-screen {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .invitation-content {
+    width: 100%;
+  }
+}
+
+/* TABLET */
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .invitation-content {
+    width: 100%;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+.wedding-story {
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+  background: #fbf5ed;
+}
+
+.wedding-story-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #fbf5ed;
+}
+
+.wedding-story-section > section {
+  width: 100%;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wedding-story-section {
+    scroll-behavior: auto;
+  }
+}
